@@ -51,11 +51,10 @@ def restaurant_list(request):
 
 
 def restaurant_detail(request, restaurant_id):
-    restaurant = Restaurant.objects.get(id=restaurant_id)
-    items = Item.objects.filter(restaurant=Restaurant.objects.get(id=restaurant_id))
+    restaurant_obj = Restaurant.objects.get(id=restaurant_id)
     context = {
-        "restaurant": restaurant,
-        "items": items,
+        "items":Item.objects.filter(restaurant=restaurant_obj),
+        "restaurant": Restaurant.objects.get(id=restaurant_id)
     }
     return render(request, 'detail.html', context)
 
@@ -65,9 +64,9 @@ def restaurant_create(request):
     if request.method == "POST":
         form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
-            restaurant_obj = form.save(commit=False)
-            restaurant_obj.owner = request.user
-            restaurant_obj.save()
+            rest_obj = form.save(commit=False)
+            rest_obj.owner = request.user
+            rest_obj.save()
             return redirect('restaurant-list')
     context = {
         "form":form,
@@ -80,9 +79,10 @@ def item_create(request, restaurant_id):
     if request.method == "POST":
         form = ItemForm(request.POST)
         if form.is_valid():
-            item = form.save(commit=False)
-            item.restaurant = restaurant_obj
-            return redirect(restaurant_obj)
+            obj = form.save(commit=False)
+            obj.restaurant = restaurant_obj
+            obj.save()
+            return redirect('restaurant-detail', restaurant_id)
     context = {
         'restaurant': restaurant_obj,
         'form':form,

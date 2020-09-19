@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class RestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
-        fields = '__all__'
+        exclude = ['owner']
 
         widgets = {
         	'opening_time': forms.TimeInput(attrs={'type':'time'}),
@@ -21,8 +21,7 @@ class ItemForm(forms.ModelForm):
 class SignupForm(forms.ModelForm):
     class Meta:
         model = User
-        exclude = ['owner',]
-
+        fields = ['username', 'first_name', 'last_name', 'email' ,'password']
         widgets={
         'password': forms.PasswordInput(),
         }

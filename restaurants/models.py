@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
 
 class Restaurant(models.Model):
     owner = models.ForeignKey (User, on_delete=models.CASCADE, default=1)
