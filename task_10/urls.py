@@ -21,15 +21,15 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+
     path('restaurants/list/',views.restaurant_list ,name='restaurant-list'),
-    path('restaurants/detail/<int:restaurant_id>/',views.restaurant_detail ,name='restaurant-detail'),
+    path('restaurants/detail/<int:restaurant_id>/', views.restaurant_detail, name='restaurant-detail'),
 
     path('restaurants/create/',views.restaurant_create ,name='restaurant-create'),
     path('restaurants/update/<int:restaurant_id>/',views.restaurant_update ,name='restaurant-update'),
     path('restaurants/delete/<int:restaurant_id>/',views.restaurant_delete ,name='restaurant-delete'),
 
-    path('restaurants/   /item/add/',views.item_create ,name='item-create'),
+    path('restaurants/<int:restaurant_id>/item/add/',views.item_create ,name='item-create'),
 
     path('signup/',views.signup ,name='signup'),
     path('signin/',views.signin ,name='signin'),
